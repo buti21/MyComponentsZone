@@ -1,0 +1,196 @@
+:root {
+  --neon: #00f2ff;
+  --bg: #050505;
+  --glitch: rgba(0, 242, 255, 0.3);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+#landing {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: radial-gradient(circle, #111 0%, #000 100%);
+  position: relative;
+  transition: 1s;
+  z-index: 20;
+}
+
+#landing::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image:
+    linear-gradient(var(--glitch) 1px, transparent 1px),
+    linear-gradient(90deg, var(--glitch) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(500px) rotateX(60deg);
+  bottom: -50%;
+  animation: gridMove 10s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes gridMove {
+  from { transform: perspective(500px) rotateX(60deg) translateY(0); }
+  to { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+}
+
+.title-container {
+  text-align: center;
+  z-index: 10;
+}
+
+.title-container p {
+  color: var(--neon);
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+}
+
+.title-container h1 {
+  font-size: 5rem;
+  letter-spacing: 20px;
+  margin: 0;
+  text-shadow: 0 0 25px var(--neon);
+  animation: pulse 2s infinite, glitch 6s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.7; }
+}
+
+@keyframes glitch {
+  0%,100% { text-shadow: 0 0 25px var(--neon); }
+  50% { text-shadow: 2px 0 red, -2px 0 cyan; }
+}
+
+.start-btn {
+  margin-top: 50px;
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: 2px solid var(--neon);
+  color: var(--neon);
+  cursor: pointer;
+  letter-spacing: 8px;
+  transition: 0.4s;
+  z-index: 30;
+}
+
+.start-btn:hover {
+  background: var(--neon);
+  color: black;
+  box-shadow: 0 0 60px var(--neon);
+  transform: scale(1.08);
+}
+
+#main-site {
+  display: none; 
+  height: 100vh;
+  grid-template-columns: 320px 1fr;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.sidebar {
+  background: #0a0a0a;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 1px solid #222;
+}
+
+.nav-btn {
+  padding: 20px;
+  background: #151515;
+  border: 1px solid #333;
+  color: #777;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn:hover {
+  color: white;
+  border-color: var(--neon);
+  transform: translateX(5px);
+}
+
+.nav-btn.active {
+  background: var(--neon);
+  color: black;
+  box-shadow: 0 0 20px var(--neon);
+}
+
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,242,255,.4), transparent);
+  transition: 0.6s;
+}
+
+.nav-btn:hover::after {
+  left: 100%;
+}
+
+.back-btn {
+  margin-top: auto;
+  padding: 15px;
+  border: 1px solid #ff4444;
+  background: transparent;
+  color: #ff4444;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.back-btn:hover {
+  background: #ff4444;
+  color: white;
+}
+
+.display-area {
+  position: relative;
+  background: radial-gradient(circle, #111, #000);
+}
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.info-card {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: rgba(0,0,0,0.85);
+  padding: 30px;
+  border-top: 4px solid var(--neon);
+  display: none;
+  width: 300px;
+  animation: slide 0.6s ease, glow 2s infinite alternate;
+}
+
+@keyframes slide {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 15px rgba(0,242,255,.2); }
+  to { box-shadow: 0 0 35px rgba(0,242,255,.6); }
+}
